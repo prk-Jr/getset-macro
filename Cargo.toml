@@ -13,6 +13,6 @@ proc-macro = true
 
 
 [dependencies]
-syn = "*"
-quote = "*"
-proc-macro2 = "*"
+syn = "2.0.35"
+quote = "1.0.33"
+proc-macro2 = "1.0.67"

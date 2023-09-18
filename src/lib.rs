@@ -2,6 +2,8 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 
+/// Todo: Create a constructor function for a struct i.e. StructName::new(fields...) ;
+
 #[proc_macro_derive(GetSet)]
 pub fn macro_learn_derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as DeriveInput);
@@ -15,6 +17,8 @@ pub fn macro_learn_derive(input: TokenStream) -> TokenStream {
     };
 
     let mut field_functions = Vec::new();
+    let mut constructor_params = Vec::new();
+    let mut constructor_args = Vec::new();
 
     for field in fields {
         let field_name = field.ident.as_ref().unwrap();
@@ -30,11 +34,23 @@ pub fn macro_learn_derive(input: TokenStream) -> TokenStream {
                 self.#field_name = set_value;
             }
         });
+
+        constructor_params.push(quote! {#field_name : #field_type});
+        constructor_args.push(quote! {#field_name});
     }
+
+    let constructor_function = quote! {
+        pub fn new(#(#constructor_params),*) -> Self {
+            Self {
+                #(#constructor_args),*
+            }
+        }
+    };
 
     quote! {
      impl #struct_name {
          #(#field_functions)*
+         #constructor_function
      }
     }
     .into()

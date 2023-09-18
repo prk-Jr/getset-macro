@@ -2,8 +2,6 @@ use proc_macro::TokenStream;
 use quote::quote;
 use syn::{parse_macro_input, Data, DeriveInput, Fields, Ident};
 
-/// Todo: Create a constructor function for a struct i.e. StructName::new(fields...) ;
-
 #[proc_macro_derive(GetSet)]
 pub fn macro_learn_derive(input: TokenStream) -> TokenStream {
     let ast = parse_macro_input!(input as DeriveInput);

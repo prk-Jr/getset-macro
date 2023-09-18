@@ -1,6 +1,6 @@
 [package]
 name = "getset-macro"
-version = "1.0.0"
+version = "1.0.1"
 edition = "2021"
 license = "MIT"
 description = "A procedural macro simplifies the creation of getter and setter methods for fields in your Rust structs."

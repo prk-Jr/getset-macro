@@ -25,7 +25,7 @@ To use the `GetSet` procedural macro, follow these steps:
     use getset_macro::GetSet;
     ```
 
-2. Apply the #[derive(GetSet)] attribute to your struct. This will automatically    generate getter and setter methods for all the struct's fields.
+2. Apply the #[derive(GetSet)] attribute to your struct. This will automatically    generate constructor, getter and setter methods for all the struct's fields.
     ```rust
     #[derive(GetSet)]
         struct MyStruct {
@@ -35,13 +35,16 @@ To use the `GetSet` procedural macro, follow these steps:
         }
     ```
 
-3. Use the generated getter and setter methods as follows:
+3. Use the generated constrotor, getter and setter methods as follows:
 
     ```rust
         let mut instance = MyStruct {
                 field1: initial_value1,
                 field2: initial_value2,
                 };
+
+        // Or Using derived constructor
+        let mut new_instance = MyStruct::new(field1, field2);
 
         // Get the value of field1
         let value1 = instance.get_field1();
@@ -52,7 +55,7 @@ To use the `GetSet` procedural macro, follow these steps:
     
     ```
 
-##Example
+## Example
 Here's an example of how to use the GetSet procedural macro:
 ```rust
 use getset_macro::GetSet;
@@ -64,10 +67,8 @@ struct Person {
 }
 
 fn main() {
-    let mut person = Person {
-        name: "Alice".to_string(),
-        age: 30,
-    };
+    // Using constructor API
+    let mut person = Person::new("Alice".to_string(), 30);
 
     // Get the name and age
     let name = person.get_name();
@@ -78,7 +79,7 @@ fn main() {
 }
 
 ```
-In this example, the GetSet macro generates get_name(), get_age(), set_name(), and set_age() methods for the Person struct's fields.
+In this example, the GetSet macro generates new(), get_name(), get_age(), set_name(), and set_age() methods for the Person struct's fields.
 
 How It Works
 The GetSet macro takes care of the following tasks:
